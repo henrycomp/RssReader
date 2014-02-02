@@ -49,7 +49,15 @@ private List<RssItem> rssItems;
 	
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		// TODO auto-generated method stub
-		super.characters(ch, start, length);
+		if (parsingTitle) {
+			if (currentItem != null) {
+				currentItem.setTitle(new String(ch, start, length));
+			}
+		} else if (parsingLink) {
+			if (currentItem != null) {
+				currentItem.setLink(new String(ch, start, length));
+				parsingLink = false;
+			}
+		}
 	}
 }
