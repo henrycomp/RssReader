@@ -24,18 +24,27 @@ private List<RssItem> rssItems;
 		return rssItems;
 	}
 	
-	
-	
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		// TODO auto-generated method stub
-		super.startElement(uri, localName, qName, attributes);
+		if ("content-item".equals(qName)) {
+			currentItem = new RssItem();
+		} else if ("title".equals(qName)) {
+			parsingTitle = true;
+		} else if ("link".equals(qName)) {
+			parsingLink = true;
+		}
 	}
 	
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		// TODO auto-generated method stub
-		super.endElement(uri, localName, qName);
+		if ("content-item".equals(qName)) {
+			rssItems.add(currentItem);
+			currentItem = null;
+		} else if ("title".equals(qName)) {
+			parsingTitle = false;
+		} else if ("link".equals(qName)) {
+			parsingLink = false;
+		}
 	}
 	
 	@Override
