@@ -17,8 +17,11 @@ public class ListListener implements OnItemClickListener {
 	Activity activity;
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		// TODO Auto-generated method stub
-		
+		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.setData(Uri.parse(listItems.get(pos).getLink()));
+		activity.startActivity(i);
 	}
+
 }
